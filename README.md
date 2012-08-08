@@ -14,23 +14,25 @@ How To Get Started
 -  Create an instance variable for SPPullView in your classes .h like this and synthesize it in your .m
 -  In your viewDidLoad (or wherever you'd like) create the PullView and pass in the UIScrollView you are using
 
-SPPullView now has a style property (PullViewStyleDefault and PullViewStyleSimple) that can be passed in init to change the style of the PullView.  If you don't pass in a property or use the old init method it will just load the default Style.  However the new styles can be accessed as such:
+SPPullView now has a style property (PullViewStyleDefault and PullViewStyleSimple) that can be passed in init to change the style of the PullView.  If you don't pass in a property it will just load the default Style.  However the new styles can be accessed as such:
 
 ``` 
 self.pullView = [SPPullView pullViewWithScrollView:self.scrollView andStyle:PullViewStyleSimple];
 ```
 
-This returns solely cosmetic changes, such as the removal of the last updated method.  Also it replaces the loading text with the Activity View.  
+PullViewStyleSimple is simply cosmetic changes, such as the removal of the last updated method.  Also it replaces the loading text with the Activity View.  
 
 ``` 
 self.pullView = [SPPullView pullViewWithScrollView:self.scrollView];
 ```
 
--  If needed add yourself as a delegate of the PullView (Make sure to register as a SPPullViewDelegate in your .h)
+-  You'll need to add yourself as a delegate of SPPullView so that you can be notified when you should refresh your data.  The only method is
 
-``` 
-self.pullView.delegate = self;
 ```
+- (void) pullViewShouldRefresh:(SPPullView *) view;
+```
+
+This is called when the user has dragged the pull view to the refresh point and released.
 
 -  Then just add the pullView to your UIScrollView
 
